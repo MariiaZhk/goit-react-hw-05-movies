@@ -1,9 +1,11 @@
-const SearchBar = (handleSubmit, value, setSearchParams) => {
+// import { useSearchParams } from 'react-router-dom';
+
+const SearchBar = (value, handleSubmit) => {
+  //   const [, setSearchParams] = useSearchParams;
   return (
     <div>
-      <form onSubmit={e => setSearchParams}>
+      <form onSubmit={handleSubmit}>
         <input
-          //   onChange={e => handleChange}
           name="search"
           value={value}
           type="text"

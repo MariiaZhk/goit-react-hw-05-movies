@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchMovieCast } from '../../services/api';
 import { Loader } from 'components/Loader/Loader';
+import { CastImg, CastItem, CastList, CastTitle } from './Cast.styled';
 
 const Cast = () => {
   const { movieId } = useParams();
@@ -26,11 +27,11 @@ const Cast = () => {
   return (
     <div>
       {loading && <Loader />}
-      <ul>
+      <CastList>
         {cast.map(({ id, profile_path, name, character }) => {
           return (
-            <li key={id}>
-              <img
+            <CastItem key={id}>
+              <CastImg
                 src={
                   profile_path
                     ? `http://image.tmdb.org/t/p/w200${profile_path}`
@@ -39,14 +40,11 @@ const Cast = () => {
                 alt={name}
                 width="150"
               />
-              <div>
-                <h3>{name}</h3>
-                <p>Character: {character}</p>
-              </div>
-            </li>
+              <CastTitle>{name}</CastTitle>
+            </CastItem>
           );
         })}
-      </ul>
+      </CastList>
     </div>
   );
 };

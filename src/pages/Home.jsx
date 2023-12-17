@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { fetchTrendingMovies } from '../services/api';
 import { Loader } from 'components/Loader/Loader';
 import { MoviesList } from 'components/MoviesList/MoviesList';
+import { MainTitle, Section } from './Pages.styled';
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
@@ -13,7 +14,6 @@ const Home = () => {
         setLoading(true);
         const data = await fetchTrendingMovies();
         setFilms(data.results);
-        // console.log(data.results);
       } catch (error) {
         console.log(error);
       } finally {
@@ -24,11 +24,11 @@ const Home = () => {
   }, []);
 
   return (
-    <section>
-      <h2>Trending Movies</h2>
+    <Section>
+      <MainTitle>Trending Movies</MainTitle>
       {loading && <Loader />}
       <MoviesList films={films} />
-    </section>
+    </Section>
   );
 };
 

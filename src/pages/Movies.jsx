@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { fetchSearchMovies } from '../services/api';
+import { MoviesList } from 'components/MoviesList/MoviesList';
+import { Loader } from 'components/Loader/Loader';
 
 const paramsNotify = {
   width: '600px',
@@ -11,21 +13,21 @@ const paramsNotify = {
 };
 
 const Movies = () => {
+  const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
   const [films, setFilms] = useState([]);
-  // const [search, setSearch] = useState('');
+
   const [searchParams, setSearchParams] = useSearchParams();
-  const query = searchParams.get('search') ?? '';
+  const query = searchParams.get('query') || '';
+  // const query = searchParams.get('search') ?? '';
 
   useEffect(() => {
-    const query = searchParams.get('query') || '';
-    if (query === '') {
+    if (!query) {
       return;
     }
     const getSearchFilm = async () => {
       try {
         setLoading(true);
-
         const data = await fetchSearchMovies(query);
         // setSearch(query);
         setFilms(data.results);
@@ -36,7 +38,7 @@ const Movies = () => {
       }
     };
     getSearchFilm();
-  }, [searchParams]);
+  }, [query]);
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -49,24 +51,29 @@ const Movies = () => {
       return;
     }
 
-    // if (searchValue === searchQuery) {
-    //   Notify.warning('Enter a new search query, please!', paramsNotify);
-    //   event.currentTarget.reset();
-    //   return;
-    // }
-
-    setSearchParams({ searchValue });
+    setSearchParams({ query: searchValue });
     setLoading(true);
+    setFilms([]);
     // event.currentTarget.reset();
   };
 
-  // const handleChange = ({ target: { value } }) => {
-  //   setSearch(value);
+  const handleChange = ({ target: { value } }) => {
+    if (!value) setSearchParams({});
+    setSearch(value);
+  };
+
+  // const handleSubmit = e => {
+  //   e.preventDefault();
+  //   if (!query) return setSearchParams({});
+  //   setSearchParams({ search: query });
+  //   submit({ query: searchParams.get('search') });
   // };
 
   return (
     <>
-      <SearchBar handleSubmit={handleSubmit}></SearchBar>
+      <SearchBar handleSubmit={handleSubmit} value={query}></SearchBar>
+      {loading && <Loader />}
+      <MoviesList films={films} />
     </>
   );
 };

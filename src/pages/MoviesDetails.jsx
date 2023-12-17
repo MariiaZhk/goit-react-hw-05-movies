@@ -1,7 +1,18 @@
 import { useEffect, useState } from 'react';
-import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
+import { Outlet, useLocation, useParams } from 'react-router-dom';
 import { fetchMovieDetails } from '../services/api';
 import { Loader } from 'components/Loader/Loader';
+import {
+  AddInfoList,
+  MovieAddInfoWrap,
+  MovieDetailsPoster,
+  MovieDetailsTitle,
+  MovieDetailsWrapper,
+  MovieInfoWrap,
+  Section,
+  Text,
+} from './Pages.styled';
+import { NavLinkStyled } from 'components/Layout/Layout.styled';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
@@ -35,40 +46,49 @@ const MovieDetails = () => {
   } = film;
 
   return (
-    <div>
+    <Section>
       {loading && <Loader />}
       {film && (
         <>
-          <div>
-            <img
+          <MovieDetailsWrapper>
+            <MovieDetailsPoster
               src={`http://image.tmdb.org/t/p/w400${poster_path}`}
               alt={title}
+              width="400px"
             />
-            <div>
-              <h3>{original_title}</h3>
-              <p>Release date: {release_date}</p>
-              <p>
-                Genres: {genres.map(({ name }) => `${name.toLowerCase()} `)}
-              </p>
-              <p>Ranking: {vote_average}</p>
-              <p>Overview: {overview}</p>
-            </div>
-          </div>
-          <div>
+            <MovieInfoWrap>
+              <MovieDetailsTitle>{original_title}</MovieDetailsTitle>
+              <Text>
+                <b>Release date: </b> {release_date}
+              </Text>
+              <Text>
+                <b>Genres: </b>
+                {genres.map(({ name }) => `${name.toLowerCase()} `)}
+              </Text>
+              <Text>
+                <b>Ranking: </b> {vote_average}
+              </Text>
+              <Text>
+                <b>Overview: </b>
+                {overview}
+              </Text>
+            </MovieInfoWrap>
+          </MovieDetailsWrapper>
+          <MovieAddInfoWrap>
             <h3>Additional information:</h3>
-            <ul>
+            <AddInfoList>
               <li>
-                <Link to="cast">Cast</Link>
+                <NavLinkStyled to="cast">Cast</NavLinkStyled>
               </li>
               <li>
-                <Link to="reviews">Reviews</Link>
+                <NavLinkStyled to="reviews">Reviews</NavLinkStyled>
               </li>
-            </ul>
-          </div>
+            </AddInfoList>
+          </MovieAddInfoWrap>
         </>
       )}
       <Outlet />
-    </div>
+    </Section>
   );
 };
 
