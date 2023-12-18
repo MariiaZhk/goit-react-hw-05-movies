@@ -2,7 +2,12 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchMovieReview } from '../../services/api';
 import { Loader } from 'components/Loader/Loader';
-import { ReviewItem, ReviewTitle, ReviewsList } from './Reviews.styled';
+import {
+  ReviewItem,
+  ReviewTitle,
+  ReviewWrapper,
+  ReviewsList,
+} from './Reviews.styled';
 
 const Reviews = () => {
   const { movieId } = useParams();
@@ -25,20 +30,31 @@ const Reviews = () => {
   }, [movieId]);
 
   return (
-    <div>
+    <>
       {loading && <Loader />}
-      <ReviewsList>
-        {reviews.map(({ id, author, content, created_at }) => {
-          return (
-            <ReviewItem key={id}>
-              <ReviewTitle>{author}</ReviewTitle>
-              <p>Review: {content}</p>
-              <p>Date: {created_at}</p>
-            </ReviewItem>
-          );
-        })}
-      </ReviewsList>
-    </div>
+      {reviews.length !== 0 ? (
+        <ReviewWrapper>
+          <ReviewsList>
+            {reviews.map(({ id, author, content, created_at }) => {
+              return (
+                <ReviewItem key={id}>
+                  <ReviewTitle>
+                    <b>Author: </b>
+                    {author}
+                  </ReviewTitle>
+                  <p>
+                    <b>Review: </b>
+                    {content}
+                  </p>
+                </ReviewItem>
+              );
+            })}
+          </ReviewsList>
+        </ReviewWrapper>
+      ) : (
+        <p>We don't have any reviews for this movie...</p>
+      )}
+    </>
   );
 };
 

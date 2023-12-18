@@ -25,27 +25,33 @@ const Cast = () => {
   }, [movieId]);
 
   return (
-    <div>
+    <>
       {loading && <Loader />}
-      <CastList>
-        {cast.map(({ id, profile_path, name, character }) => {
-          return (
-            <CastItem key={id}>
-              <CastImg
-                src={
-                  profile_path
-                    ? `http://image.tmdb.org/t/p/w200${profile_path}`
-                    : `https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png`
-                }
-                alt={name}
-                width="150"
-              />
-              <CastTitle>{name}</CastTitle>
-            </CastItem>
-          );
-        })}
-      </CastList>
-    </div>
+      {cast.length !== 0 ? (
+        <CastList>
+          {cast.map(({ id, profile_path, name, character }) => {
+            return (
+              <CastItem key={id}>
+                <CastImg
+                  src={
+                    profile_path
+                      ? `http://image.tmdb.org/t/p/w200${profile_path}`
+                      : `https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png`
+                  }
+                  alt={name}
+                  width="150"
+                />
+                <CastTitle>{name}</CastTitle>
+              </CastItem>
+            );
+          })}
+        </CastList>
+      ) : (
+        <p>
+          Sorry... We don't have any information about the cast of this movie
+        </p>
+      )}
+    </>
   );
 };
 

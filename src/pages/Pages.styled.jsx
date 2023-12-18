@@ -1,17 +1,17 @@
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const Section = styled.section`
   position: absolute;
-  width: 100%;
   padding-bottom: 40px;
-  margin: 20px;
-  margin-top: 50px;
+  padding: 0 20px;
+  margin-top: 80px;
+  padding-bottom: 100px;
 `;
 
 export const MainTitle = styled.h1`
   display: inline-block;
-  margin-top: 20px;
-  color: #fff;
+  margin-top: 30px;
   font-size: 40px;
   line-height: 45px;
   font-weight: 800;
@@ -21,8 +21,8 @@ export const MovieDetailsWrapper = styled.div`
   display: flex;
   justify-content: start;
   align-items: self-start;
-  margin-top: 30px;
-  width: 90%;
+  margin-top: 40px;
+  width: 70%;
 `;
 export const MovieInfoWrap = styled.div`
   width: 100%;
@@ -41,8 +41,24 @@ export const AddInfoList = styled.ul`
   justify-content: start;
 `;
 
+export const LinkStyled = styled(NavLink)`
+  line-height: 50px;
+  padding-right: 20px;
+  color: #9f9f9f;
+  font-size: 20px;
+  font-weight: 800;
+  text-transform: uppercase;
+  text-decoration: underline;
+  transition: all 0.3s;
+
+  &.active,
+  &:hover {
+    color: #ca563f !important;
+  }
+`;
+
 export const MovieDetailsPoster = styled.img`
-  width: 350px;
+  width: 250px;
   object-fit: cover;
   border-radius: 4px;
   box-shadow: 0 4px 8px 0 rgba(215, 212, 212, 0.323),
@@ -54,8 +70,15 @@ export const MovieDetailsTitle = styled.h2`
   font-size: 30px;
   display: block;
 `;
-
-export const Text = styled.p`
-  font-size: 22px;
-  color: #9f9f9f;
+export const GoBackBtn = styled.button`
+  display: block;
+  width: 250px;
+  height: 40px;
+  background: #ca563f;
+  color: #fff;
+  text-shadow: none;
+  font-size: 18px;
+  border: 1px solid #444;
+  border-radius: 3px;
+  box-shadow: 0 0 10px 0 rgba(4, 162, 220, 0.5);
 `;

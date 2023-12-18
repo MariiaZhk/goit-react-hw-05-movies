@@ -1,24 +1,26 @@
-import { useEffect, useState } from 'react';
-import { Outlet, useLocation, useParams } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { fetchMovieDetails } from '../services/api';
 import { Loader } from 'components/Loader/Loader';
 import {
   AddInfoList,
+  GoBackBtn,
+  LinkStyled,
   MovieAddInfoWrap,
   MovieDetailsPoster,
   MovieDetailsTitle,
   MovieDetailsWrapper,
   MovieInfoWrap,
   Section,
-  Text,
 } from './Pages.styled';
-import { NavLinkStyled } from 'components/Layout/Layout.styled';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
   const [loading, setLoading] = useState(false);
   const [film, setFilm] = useState('');
-  //   const location = useLocation();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const goBackRef = useRef(location.state ?? '/');
 
   useEffect(() => {
     const getDetails = async () => {
@@ -35,6 +37,10 @@ const MovieDetails = () => {
     movieId && getDetails();
   }, [movieId]);
 
+  const handleGoBack = () => {
+    navigate(goBackRef.current);
+  };
+
   const {
     poster_path,
     original_title,
@@ -50,38 +56,44 @@ const MovieDetails = () => {
       {loading && <Loader />}
       {film && (
         <>
+          <GoBackBtn onClick={handleGoBack}>Go back</GoBackBtn>
           <MovieDetailsWrapper>
             <MovieDetailsPoster
-              src={`http://image.tmdb.org/t/p/w400${poster_path}`}
+              src={
+                poster_path
+                  ? `http://image.tmdb.org/t/p/w400${poster_path}`
+                  : `https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png`
+              }
               alt={title}
               width="400px"
             />
+
             <MovieInfoWrap>
               <MovieDetailsTitle>{original_title}</MovieDetailsTitle>
-              <Text>
+              <p>
                 <b>Release date: </b> {release_date}
-              </Text>
-              <Text>
+              </p>
+              <p>
                 <b>Genres: </b>
-                {genres.map(({ name }) => `${name.toLowerCase()} `)}
-              </Text>
-              <Text>
+                {genres.map(({ name }) => `${name.toLowerCase()} | `)}
+              </p>
+              <p>
                 <b>Ranking: </b> {vote_average}
-              </Text>
-              <Text>
+              </p>
+              <p>
                 <b>Overview: </b>
                 {overview}
-              </Text>
+              </p>
             </MovieInfoWrap>
           </MovieDetailsWrapper>
           <MovieAddInfoWrap>
             <h3>Additional information:</h3>
             <AddInfoList>
               <li>
-                <NavLinkStyled to="cast">Cast</NavLinkStyled>
+                <LinkStyled to="cast">Cast</LinkStyled>
               </li>
               <li>
-                <NavLinkStyled to="reviews">Reviews</NavLinkStyled>
+                <LinkStyled to="reviews">Reviews</LinkStyled>
               </li>
             </AddInfoList>
           </MovieAddInfoWrap>

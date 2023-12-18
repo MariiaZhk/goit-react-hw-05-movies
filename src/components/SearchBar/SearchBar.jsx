@@ -1,21 +1,25 @@
-// import { useSearchParams } from 'react-router-dom';
+import {
+  SearchBarWrap,
+  SearchBtn,
+  SearchForm,
+  SearchInput,
+} from './SearchBar.styled';
 
-const SearchBar = (value, handleSubmit) => {
-  //   const [, setSearchParams] = useSearchParams;
+const SearchBar = ({ handleSubmit, value }) => {
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
+    <SearchBarWrap>
+      <SearchForm onSubmit={handleSubmit}>
+        <SearchInput
           name="search"
-          value={value}
+          defaultValue={value}
           type="text"
           autoComplete="off"
           autoFocus
           placeholder="Enter your search query"
         />
-        <button type="submit">Search</button>
-      </form>
-    </div>
+        <SearchBtn type="submit">Search</SearchBtn>
+      </SearchForm>
+    </SearchBarWrap>
   );
 };
 

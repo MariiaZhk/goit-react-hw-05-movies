@@ -13,61 +13,56 @@ const paramsNotify = {
 };
 
 const Movies = () => {
-  const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
   const [films, setFilms] = useState([]);
-
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('query') || '';
-  // const query = searchParams.get('search') ?? '';
 
   useEffect(() => {
     if (!query) {
       return;
     }
-    const getSearchFilm = async () => {
+    async function getSearchFilm() {
       try {
         setLoading(true);
         const data = await fetchSearchMovies(query);
-        // setSearch(query);
         setFilms(data.results);
+
+        if (data.results.length === 0) {
+          return Notify.failure(
+            'Sorry, there are no movies matching your search query. Please try again.',
+            paramsNotify
+          );
+        }
       } catch (error) {
-        console.log(error);
+        Notify.failure(
+          'Oops, something went wrong.Try to refresh this page or make another search.',
+          paramsNotify
+        );
       } finally {
         setLoading(false);
       }
-    };
+    }
     getSearchFilm();
   }, [query]);
 
   const handleSubmit = event => {
     event.preventDefault();
-    const searchValue = event.currentTarget.elements.search.value;
+    const searchValue = event.currentTarget.elements.search.value.trim();
 
     if (searchValue === '') {
-      Notify.warning('Enter your search query, please!', paramsNotify);
-      setSearchParams({});
-      setFilms([]);
+      Notify.failure('Enter your search query, please!', paramsNotify);
+      return;
+    }
+
+    if (searchValue === query) {
+      Notify.failure('Enter a new search query, please!', paramsNotify);
+      event.currentTarget.reset();
       return;
     }
 
     setSearchParams({ query: searchValue });
-    setLoading(true);
-    setFilms([]);
-    // event.currentTarget.reset();
   };
-
-  const handleChange = ({ target: { value } }) => {
-    if (!value) setSearchParams({});
-    setSearch(value);
-  };
-
-  // const handleSubmit = e => {
-  //   e.preventDefault();
-  //   if (!query) return setSearchParams({});
-  //   setSearchParams({ search: query });
-  //   submit({ query: searchParams.get('search') });
-  // };
 
   return (
     <>

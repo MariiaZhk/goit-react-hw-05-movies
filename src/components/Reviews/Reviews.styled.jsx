@@ -1,25 +1,23 @@
 import styled from 'styled-components';
 
+export const ReviewWrapper = styled.div`
+  margin-top: 40px;
+`;
+
 export const ReviewsList = styled.ul`
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-top: 20px;
-  padding: 0;
+  gap: 30px;
 `;
 
 export const ReviewItem = styled.li`
-  border-radius: 2px;
-  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  display: block;
+  max-height: 300px;
+  overflow: auto;
 `;
 
-export const ReviewTitle = styled.h2`
-  display: block;
-  margin-top: 15px;
-  height: 40px;
-  overflow: hidden;
-  text-align: center;
+export const ReviewTitle = styled.h3`
+  padding-bottom: 5px;
   font-weight: 700;
   font-size: 18px;
-  color: #9f9f9f;
 `;

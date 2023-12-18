@@ -4,7 +4,7 @@ export const CastList = styled.ul`
   display: grid;
   max-width: calc(100vw - 60px);
   grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  grid-gap: 40px;
+  grid-gap: 20px;
   margin-top: 20px;
   padding: 0;
 `;
