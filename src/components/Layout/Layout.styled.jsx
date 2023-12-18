@@ -42,3 +42,8 @@ export const Footer = styled.footer`
   box-shadow: 0 4px 8px 0 rgba(215, 212, 212, 0.323),
     0 6px 20px 0 rgba(165, 164, 164, 0.19);
 `;
+export const LoaderText = styled.div`
+  margin-top: 70px;
+  font-size: 20px;
+  color: #ca563f;
+`;

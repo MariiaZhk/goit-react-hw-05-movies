@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { NotFoundText, NotFoundWrap } from './Pages.styled';
 
 const NotFound = () => {
