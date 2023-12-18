@@ -30,7 +30,7 @@ const Movies = () => {
 
         if (data.results.length === 0) {
           return Notify.failure(
-            'Sorry, there are no movies matching your search query. Please try again.',
+            'Sorry, there are no trending movies for today...',
             paramsNotify
           );
         }
