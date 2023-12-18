@@ -35,7 +35,7 @@ const Reviews = () => {
       {reviews.length !== 0 ? (
         <ReviewWrapper>
           <ReviewsList>
-            {reviews.map(({ id, author, content, created_at }) => {
+            {reviews.map(({ id, author, content }) => {
               return (
                 <ReviewItem key={id}>
                   <ReviewTitle>

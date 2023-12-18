@@ -82,3 +82,12 @@ export const GoBackBtn = styled.button`
   border-radius: 3px;
   box-shadow: 0 0 10px 0 rgba(4, 162, 220, 0.5);
 `;
+
+export const NotFoundWrap = styled.div`
+  margin-top: 100px;
+`;
+
+export const NotFoundText = styled.h2`
+  font-size: 28px;
+  color: #ca563f;
+`;

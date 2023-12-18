@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { NotFoundText, NotFoundWrap } from './Pages.styled';
 
 const NotFound = () => {
   return (
-    <div>
-      <h2>This page is not available!</h2>
-      <Link to="/">Please, go home!</Link>
-    </div>
+    <NotFoundWrap>
+      <NotFoundText>Page not found! Please, go home!</NotFoundText>
+    </NotFoundWrap>
   );
 };
 
